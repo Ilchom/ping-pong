@@ -35,14 +35,16 @@ class Player(GameSprite):
          
         if  keys_pressed[K_DOWN] and self.rect.y < 480:
             self.rect.y += self.speed
-'''class Ball(GameSprite):
-    def update(self):'''
 
 player1 = Player('raketka.png', 5, 275, 25, 100, 5)
-player2 = Player('raketka.png', 690, 275, 25, 100, 5)
+player2 = Player('raketka.png', 670, 275, 25, 100, 5)
+ball = GameSprite('bal.png', 200, 200, 50, 50, 5)
 
 font.init()
 font1 = font.Font(None, 100)
+
+speed_x = 3
+speed_y = 3
 
 clock = time.Clock()
 finish = False
@@ -56,19 +58,30 @@ while game:
 
     if finish == False:   
         window.fill(color_fon)
+        ball.reset()
         player1.reset()
         player1.update_l()
         player2.reset()
         player2.update_r()
-    '''if ball_x <= 0:
-            lose = font2.render('LEFT LOSE', True, (215, 215, 23))
+        ball.rect.x += speed_x
+        ball.rect.y += speed_y
+
+        if ball.rect.y >= 450 or ball.rect.y <= 0:
+            speed_y *= -1
+        if sprite.collide_rect(player1, ball) or sprite.collide_rect(player2, ball):
+            speed_x *= -1
+
+
+
+        if ball.rect.x <= 0:
+            lose = font1.render('LEFT LOSE', True, (215, 215, 23))
             finish = True
             window.blit(lose, (200,200))
-        if ball_x >= 500:
-            lose = font2.render('RIGHT LOSE', True, (215, 215, 23))
+        if ball.rect.x >= 700:
+            lose = font1.render('RIGHT LOSE', True, (215, 215, 23))
             finish = True
             window.blit(lose, (200,200))
-    '''
+    
         
         
     
